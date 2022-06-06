@@ -1,0 +1,827 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "live-asl-service.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "AslStreams"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/asl-streams": {
+      "get": {
+        "summary": "list streams",
+        "operationId": "AslStreams_ListStreams",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aslstreams.ListAslStreamsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "tags": [
+          "AslStreams"
+        ]
+      },
+      "post": {
+        "summary": "Provision a new stream",
+        "operationId": "AslStreams_CreateStream",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aslstreams.CreateAslStreamResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aslstreams.CreateAslStreamRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AslStreams"
+        ]
+      }
+    },
+    "/api/v1/asl-streams/resolve": {
+      "post": {
+        "summary": "Resolve a stream from the stream name sent as authorization header",
+        "operationId": "AslStreams_ResolveStream",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aslstreams.ResolveAslStreamResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aslstreams.ResolveAslStreamRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AslStreams"
+        ]
+      }
+    },
+    "/api/v1/asl-streams/validate": {
+      "post": {
+        "summary": "Validate stream token",
+        "operationId": "AslStreams_ValidateStreamToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aslstreams.ValidateAslStreamTokenResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "tags": [
+          "AslStreams"
+        ]
+      }
+    },
+    "/api/v1/asl-streams/{streamId}": {
+      "get": {
+        "operationId": "AslStreams_GetStream",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aslstreams.GetAslStreamResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "streamId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AslStreams"
+        ]
+      },
+      "delete": {
+        "summary": "Delete a stream",
+        "operationId": "AslStreams_DeleteStream",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aslstreams.DeleteAslStreamResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "streamId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AslStreams"
+        ]
+      },
+      "post": {
+        "summary": "Update a stream",
+        "operationId": "AslStreams_UpdateStream",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aslstreams.UpdateAslStreamResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "streamId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "stream": {
+                  "$ref": "#/definitions/streams.Stream"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "AslStreams"
+        ]
+      }
+    },
+    "/api/v1/asl-streams/{streamId}/log-minutes": {
+      "post": {
+        "operationId": "AslStreams_LogStreamMinutes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aslstreams.LogAslStreamMinutesRequest"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "streamId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "loggedMinutes": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "AslStreams"
+        ]
+      }
+    },
+    "/api/v1/asl-streams/{streamId}/start": {
+      "post": {
+        "summary": "Start Stream",
+        "operationId": "AslStreams_StartStream",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aslstreams.StartAslStreamResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "streamId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "tags": [
+          "AslStreams"
+        ]
+      }
+    },
+    "/api/v1/asl-streams/{streamId}/stop": {
+      "post": {
+        "summary": "Reject Stream",
+        "operationId": "AslStreams_RejectStream",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aslstreams.RejectAslStreamResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "streamId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "tags": [
+          "AslStreams"
+        ]
+      }
+    },
+    "/api/v1/asl-streams/{streamId}/urls": {
+      "post": {
+        "summary": "Create stream urls",
+        "operationId": "AslStreams_CreateStreamUrls",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aslstreams.CreateAslStreamUrlsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "streamId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "tags": [
+          "AslStreams"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "aslstreams.ConfirmAslStreamResponse": {
+      "type": "object",
+      "properties": {
+        "stream": {
+          "$ref": "#/definitions/streams.Stream"
+        }
+      }
+    },
+    "aslstreams.CreateAslStreamRequest": {
+      "type": "object",
+      "properties": {
+        "stream": {
+          "$ref": "#/definitions/streams.Stream"
+        },
+        "callbackUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "aslstreams.CreateAslStreamResponse": {
+      "type": "object",
+      "properties": {
+        "stream": {
+          "$ref": "#/definitions/streams.Stream"
+        }
+      }
+    },
+    "aslstreams.CreateAslStreamUrlsResponse": {
+      "type": "object",
+      "properties": {
+        "rtmpOptions": {
+          "$ref": "#/definitions/streams.RtmpOptions"
+        }
+      }
+    },
+    "aslstreams.DeleteAslStreamResponse": {
+      "type": "object"
+    },
+    "aslstreams.GetAslStreamResponse": {
+      "type": "object",
+      "properties": {
+        "stream": {
+          "$ref": "#/definitions/streams.Stream"
+        }
+      }
+    },
+    "aslstreams.ListAslStreamsResponse": {
+      "type": "object",
+      "properties": {
+        "streams": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/streams.Stream"
+          }
+        }
+      }
+    },
+    "aslstreams.LogAslStreamMinutesRequest": {
+      "type": "object",
+      "properties": {
+        "streamId": {
+          "type": "string"
+        },
+        "loggedMinutes": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "aslstreams.RejectAslStreamResponse": {
+      "type": "object",
+      "properties": {
+        "stream": {
+          "$ref": "#/definitions/streams.Stream"
+        }
+      }
+    },
+    "aslstreams.ResolveAslStreamRequest": {
+      "type": "object"
+    },
+    "aslstreams.ResolveAslStreamResponse": {
+      "type": "object",
+      "properties": {
+        "stream": {
+          "$ref": "#/definitions/streams.Stream"
+        }
+      }
+    },
+    "aslstreams.StartAslStreamResponse": {
+      "type": "object",
+      "properties": {
+        "stream": {
+          "$ref": "#/definitions/streams.Stream"
+        }
+      }
+    },
+    "aslstreams.StopAslStreamResponse": {
+      "type": "object",
+      "properties": {
+        "stream": {
+          "$ref": "#/definitions/streams.Stream"
+        }
+      }
+    },
+    "aslstreams.UpdateAslStreamResponse": {
+      "type": "object",
+      "properties": {
+        "stream": {
+          "$ref": "#/definitions/streams.Stream"
+        }
+      }
+    },
+    "aslstreams.ValidateAslStreamTokenResponse": {
+      "type": "object",
+      "properties": {
+        "stream": {
+          "$ref": "#/definitions/streams.Stream"
+        },
+        "callbackUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "google.protobuf.Any": {
+      "type": "object",
+      "properties": {
+        "typeUrl": {
+          "type": "string",
+          "description": "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+        },
+        "value": {
+          "type": "string",
+          "format": "byte",
+          "description": "Must be a valid serialized protocol buffer of the above specified type."
+        }
+      },
+      "description": "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(\u0026foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := \u0026pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := \u0026pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": \u003cstring\u003e,\n      \"lastName\": \u003cstring\u003e\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+    },
+    "google.rpc.Status": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/google.protobuf.Any"
+          }
+        }
+      }
+    },
+    "patchbay.common.ListFilter": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/patchbay.common.ListFilterItem"
+          }
+        }
+      }
+    },
+    "patchbay.common.ListFilterComparisonOperator": {
+      "type": "string",
+      "enum": [
+        "LIST_FILTER_COMPARISON_STARTS_WITH",
+        "LIST_FILTER_COMPARISON_CONTAINS"
+      ],
+      "default": "LIST_FILTER_COMPARISON_STARTS_WITH"
+    },
+    "patchbay.common.ListFilterItem": {
+      "type": "object",
+      "properties": {
+        "fieldName": {
+          "type": "string"
+        },
+        "fieldValue": {
+          "type": "string"
+        },
+        "comparisonOperator": {
+          "$ref": "#/definitions/patchbay.common.ListFilterComparisonOperator"
+        }
+      }
+    },
+    "streams.AslOptions": {
+      "type": "object"
+    },
+    "streams.AslPipOptions": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "streams.CaptionOptions": {
+      "type": "object",
+      "properties": {
+        "isTestCaptionsEnabled": {
+          "type": "boolean",
+          "title": "are test captions enabled?"
+        },
+        "numOfRows": {
+          "type": "string",
+          "title": "Number of Rows"
+        }
+      }
+    },
+    "streams.CaptionsType": {
+      "type": "string",
+      "enum": [
+        "CAPTIONS_TYPE_AI",
+        "CAPTIONS_TYPE_HUMAN"
+      ],
+      "default": "CAPTIONS_TYPE_AI"
+    },
+    "streams.EegFalconOptions": {
+      "type": "object",
+      "properties": {
+        "falconPrimaryStreamUrl": {
+          "type": "string"
+        },
+        "falconPrimaryStreamKey": {
+          "type": "string"
+        },
+        "falconBackupStreamUrl": {
+          "type": "string"
+        },
+        "falconBackupStreamKey": {
+          "type": "string"
+        }
+      }
+    },
+    "streams.EegICapOptions": {
+      "type": "object",
+      "properties": {
+        "icapAccessCode": {
+          "type": "string"
+        }
+      }
+    },
+    "streams.EegLexiOptions": {
+      "type": "object",
+      "properties": {
+        "lexiInstanceId": {
+          "type": "string"
+        }
+      }
+    },
+    "streams.EegTranslationOptions": {
+      "type": "object",
+      "properties": {
+        "translationJobId": {
+          "type": "string"
+        }
+      }
+    },
+    "streams.RtmpOptions": {
+      "type": "object",
+      "properties": {
+        "primaryUrl": {
+          "type": "string"
+        },
+        "primaryStreamName": {
+          "type": "string"
+        },
+        "secondaryUrl": {
+          "type": "string"
+        },
+        "secondaryStreamName": {
+          "type": "string"
+        }
+      }
+    },
+    "streams.Stream": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "stream id"
+        },
+        "accountId": {
+          "type": "string",
+          "title": "account id"
+        },
+        "name": {
+          "type": "string",
+          "title": "name"
+        },
+        "type": {
+          "$ref": "#/definitions/streams.CaptionsType",
+          "title": "captions type"
+        },
+        "status": {
+          "$ref": "#/definitions/streams.StreamStatus",
+          "title": "Stream status"
+        },
+        "audioLanguage": {
+          "type": "string",
+          "title": "audio language"
+        },
+        "translationLanguages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "translation languages"
+        },
+        "providers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/streams.StreamProvider"
+          },
+          "title": "stream providers"
+        },
+        "startTime": {
+          "type": "integer",
+          "format": "int32",
+          "title": "start time"
+        },
+        "endTime": {
+          "type": "integer",
+          "format": "int32",
+          "title": "end time"
+        },
+        "timezone": {
+          "type": "string",
+          "title": "timezone"
+        },
+        "rtmpDestinationOptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/streams.RtmpOptions"
+          },
+          "title": "RTMP Destinations"
+        },
+        "loggedMinutes": {
+          "type": "integer",
+          "format": "int32",
+          "title": "total minutes logged by caption provider"
+        },
+        "createdAt": {
+          "type": "integer",
+          "format": "int32",
+          "title": "created at"
+        },
+        "updatedAt": {
+          "type": "integer",
+          "format": "int32",
+          "title": "updated at"
+        },
+        "startedAt": {
+          "type": "integer",
+          "format": "int32",
+          "title": "stream started at"
+        },
+        "stoppedAt": {
+          "type": "integer",
+          "format": "int32",
+          "title": "stream stopped at"
+        },
+        "aslOptions": {
+          "$ref": "#/definitions/streams.AslOptions"
+        },
+        "captionOptions": {
+          "$ref": "#/definitions/streams.CaptionOptions"
+        }
+      }
+    },
+    "streams.StreamProvider": {
+      "type": "object",
+      "properties": {
+        "providerType": {
+          "$ref": "#/definitions/streams.StreamProviderType"
+        },
+        "providerStatus": {
+          "$ref": "#/definitions/streams.StreamProviderStatus"
+        },
+        "eegFalconOptions": {
+          "$ref": "#/definitions/streams.EegFalconOptions"
+        },
+        "eegIcapOptions": {
+          "$ref": "#/definitions/streams.EegICapOptions"
+        },
+        "eegLexiOptions": {
+          "$ref": "#/definitions/streams.EegLexiOptions"
+        },
+        "eegTranslationOptions": {
+          "$ref": "#/definitions/streams.EegTranslationOptions"
+        },
+        "aslPipOptions": {
+          "$ref": "#/definitions/streams.AslPipOptions"
+        }
+      }
+    },
+    "streams.StreamProviderStatus": {
+      "type": "string",
+      "enum": [
+        "STREAM_PROVIDER_STATUS_ACTIVE",
+        "STREAM_PROVIDER_STATUS_DELETED",
+        "STREAM_PROVIDER_STATUS_ERROR"
+      ],
+      "default": "STREAM_PROVIDER_STATUS_ACTIVE"
+    },
+    "streams.StreamProviderType": {
+      "type": "string",
+      "enum": [
+        "STREAM_PROVIDER_EEG_FALCON",
+        "STREAM_PROVIDER_EEG_ICAP",
+        "STREAM_PROVIDER_EEG_LEXI",
+        "STREAM_PROVIDER_EEG_TRANSLATION",
+        "STREAM_PROVIDER_ASL_PIP"
+      ],
+      "default": "STREAM_PROVIDER_EEG_FALCON"
+    },
+    "streams.StreamStatus": {
+      "type": "string",
+      "enum": [
+        "STREAM_STATUS_AWAITING_CONFIRMATION",
+        "STREAM_STATUS_CONFIRMED",
+        "STREAM_STATUS_REJECTED",
+        "STREAM_STATUS_CANCELLED",
+        "STREAM_STATUS_ERROR",
+        "STREAM_STATUS_RUNNING",
+        "STREAM_STATUS_STOPPED"
+      ],
+      "default": "STREAM_STATUS_AWAITING_CONFIRMATION"
+    }
+  }
+}

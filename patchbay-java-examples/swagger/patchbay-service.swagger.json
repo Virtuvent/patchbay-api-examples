@@ -1,0 +1,2333 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "patchbay-service.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "PatchbaySources"
+    },
+    {
+      "name": "PatchbayAlerts"
+    },
+    {
+      "name": "PatchbayOutputTemplates"
+    },
+    {
+      "name": "PatchbaySettings"
+    },
+    {
+      "name": "PatchbayApplications"
+    },
+    {
+      "name": "PatchbayContent"
+    },
+    {
+      "name": "ExternalContent"
+    },
+    {
+      "name": "PatchbayAccount"
+    },
+    {
+      "name": "PatchbayTransactions"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/accounts/me": {
+      "get": {
+        "summary": "Get current users account",
+        "operationId": "PatchbayAccount_MyAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.accounts.MyAccountResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "tags": [
+          "PatchbayAccount"
+        ]
+      }
+    },
+    "/api/v1/alerts": {
+      "get": {
+        "summary": "list alerts",
+        "operationId": "PatchbayAlerts_ListAlerts",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.alerts.ListAlertsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "alertType",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ALERT_TYPE_GENERIC",
+              "ALERT_TYPE_MEDIALIVE_CHANNEL"
+            ],
+            "default": "ALERT_TYPE_GENERIC"
+          },
+          {
+            "name": "fromTime",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "toTime",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "filters.mediaLiveChannelId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PatchbayAlerts"
+        ]
+      }
+    },
+    "/api/v1/applications": {
+      "get": {
+        "summary": "List all applications",
+        "operationId": "PatchbayApplications_ListApplications",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.applications.ListApplicationsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "offset",
+            "description": "how many items should be skipped.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "description": "the amount of items per response.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "PatchbayApplications"
+        ]
+      },
+      "post": {
+        "summary": "Create a new application",
+        "operationId": "PatchbayApplications_CreateApplication",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.applications.CreateApplicationResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/patchbay.applications.CreateApplicationRequest"
+            }
+          }
+        ],
+        "tags": [
+          "PatchbayApplications"
+        ]
+      }
+    },
+    "/api/v1/applications/{appId}": {
+      "delete": {
+        "summary": "Delete an application",
+        "operationId": "PatchbayApplications_DeleteInput",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.applications.DeleteApplicationResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "appId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PatchbayApplications"
+        ]
+      }
+    },
+    "/api/v1/content": {
+      "get": {
+        "summary": "List all content",
+        "operationId": "PatchbayContent_ListContent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.content.ListContentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "offset",
+            "description": "how many items should be skipped.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "description": "the amount of items per response.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "sortDirection",
+            "description": "sort direction (ascending or descending).",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "SORT_DIRECTION_ASC",
+              "SORT_DIRECTION_DESC"
+            ],
+            "default": "SORT_DIRECTION_ASC"
+          },
+          {
+            "name": "sortBy",
+            "description": "sort by field.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "CONTENT_SORT_BY_TYPE",
+              "CONTENT_SORT_BY_NAME",
+              "CONTENT_SORT_BY_DATE",
+              "CONTENT_SORT_BY_STATUS"
+            ],
+            "default": "CONTENT_SORT_BY_TYPE"
+          }
+        ],
+        "tags": [
+          "PatchbayContent"
+        ]
+      },
+      "post": {
+        "summary": "create content",
+        "operationId": "PatchbayContent_CreateContent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.content.CreateContentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/patchbay.content.CreateContentRequest"
+            }
+          }
+        ],
+        "tags": [
+          "PatchbayContent"
+        ]
+      }
+    },
+    "/api/v1/content/import": {
+      "post": {
+        "summary": "import content",
+        "operationId": "PatchbayContent_ImportContent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.content.ImportContentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/patchbay.content.ImportContentRequest"
+            }
+          }
+        ],
+        "tags": [
+          "PatchbayContent"
+        ]
+      }
+    },
+    "/api/v1/content/{contentId}": {
+      "get": {
+        "summary": "get content by id",
+        "operationId": "PatchbayContent_GetContent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.content.GetContentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "contentId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PatchbayContent"
+        ]
+      },
+      "delete": {
+        "summary": "delete content by id",
+        "operationId": "PatchbayContent_DeleteContent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.content.DeleteContentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "contentId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "forceDelete",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "PatchbayContent"
+        ]
+      },
+      "put": {
+        "summary": "create content",
+        "operationId": "PatchbayContent_UpdateContent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.content.UpdateContentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "contentId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "contentItem": {
+                  "$ref": "#/definitions/patchbay.content.ContentItem"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "PatchbayContent"
+        ]
+      }
+    },
+    "/api/v1/content/{contentId}/describe-flow": {
+      "get": {
+        "summary": "list flow content by id",
+        "operationId": "PatchbayContent_GetContentDescribeFlow",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.content.GetMediaConnectFlowDetailsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "contentId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PatchbayContent"
+        ]
+      }
+    },
+    "/api/v1/content/{contentId}/sessions": {
+      "get": {
+        "summary": "list sessions with content",
+        "operationId": "PatchbayContent_GetSessionsForContent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.content.GetSessionsForContentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "contentId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PatchbayContent"
+        ]
+      }
+    },
+    "/api/v1/external-content": {
+      "get": {
+        "summary": "list external content from remote provider (Kaltura, etc...)",
+        "operationId": "ExternalContent_ListExternalContent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.content.ListExternalContentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "platform",
+            "description": "platform to list content from.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "CONTENT_PLATFORM_PATCHBAY",
+              "CONTENT_PLATFORM_KALTURA"
+            ],
+            "default": "CONTENT_PLATFORM_PATCHBAY"
+          },
+          {
+            "name": "offset",
+            "description": "how many items should be skipped.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "description": "the amount of items per response.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "sortDirection",
+            "description": "sort direction (ascending or descending).",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "SORT_DIRECTION_ASC",
+              "SORT_DIRECTION_DESC"
+            ],
+            "default": "SORT_DIRECTION_ASC"
+          },
+          {
+            "name": "sortBy",
+            "description": "sort by field.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "CONTENT_SORT_BY_TYPE",
+              "CONTENT_SORT_BY_NAME",
+              "CONTENT_SORT_BY_DATE",
+              "CONTENT_SORT_BY_STATUS"
+            ],
+            "default": "CONTENT_SORT_BY_TYPE"
+          }
+        ],
+        "tags": [
+          "ExternalContent"
+        ]
+      },
+      "post": {
+        "summary": "import external content from remote provider (Kaltura, etc...)",
+        "operationId": "ExternalContent_ImportExternalContent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.content.ImportExternalContentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/patchbay.content.ImportExternalContentRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ExternalContent"
+        ]
+      }
+    },
+    "/api/v1/output-templates": {
+      "get": {
+        "summary": "Fetch a list of output templates",
+        "operationId": "PatchbayOutputTemplates_ListOutputTemplates",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.outputtemplates.ListOutputTemplatesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "offset",
+            "description": "how many items should be skipped.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "description": "the amount of items per response.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "PatchbayOutputTemplates"
+        ]
+      },
+      "post": {
+        "summary": "Create a new output template",
+        "operationId": "PatchbayOutputTemplates_CreateOutputTemplate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.outputtemplates.CreateOutputTemplateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/patchbay.outputtemplates.CreateOutputTemplateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "PatchbayOutputTemplates"
+        ]
+      }
+    },
+    "/api/v1/output-templates/{outputTemplateId}": {
+      "get": {
+        "summary": "Get outputTemplate by id",
+        "operationId": "PatchbayOutputTemplates_GetOutputTemplate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.outputtemplates.GetOutputTemplateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "outputTemplateId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PatchbayOutputTemplates"
+        ]
+      },
+      "delete": {
+        "summary": "Delete outputTemplate by id",
+        "operationId": "PatchbayOutputTemplates_DeleteOutputTemplate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.outputtemplates.DeleteOutputTemplateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "outputTemplateId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PatchbayOutputTemplates"
+        ]
+      },
+      "put": {
+        "summary": "Update an existing output template",
+        "operationId": "PatchbayOutputTemplates_UpdateOutputTemplate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.outputtemplates.UpdateOutputTemplateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "outputTemplateId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "outputTemplate": {
+                  "$ref": "#/definitions/patchbay.outputtemplates.OutputTemplate"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "PatchbayOutputTemplates"
+        ]
+      }
+    },
+    "/api/v1/settings": {
+      "get": {
+        "summary": "Fetch a list of settings from Patchbay",
+        "operationId": "PatchbaySettings_GetSettings",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.settings.GetSettingsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "tags": [
+          "PatchbaySettings"
+        ]
+      }
+    },
+    "/api/v1/sources": {
+      "get": {
+        "summary": "Fetch a list of sources from Patchbay",
+        "operationId": "PatchbaySources_ListSources",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.sources.ListSourcesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "offset",
+            "description": "how many items should be skipped.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "description": "the amount of items per response.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "PatchbaySources"
+        ]
+      },
+      "post": {
+        "summary": "Create a source in Patchbay",
+        "operationId": "PatchbaySources_CreateSources",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.sources.CreateSourceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/patchbay.sources.CreateSourceRequest"
+            }
+          }
+        ],
+        "tags": [
+          "PatchbaySources"
+        ]
+      }
+    },
+    "/api/v1/transactions": {
+      "get": {
+        "operationId": "PatchbayTransactions_ListTransactions",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/patchbay.transactions.ListTransactionsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "accountId",
+            "description": "account id.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PatchbayTransactions"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "google.protobuf.Any": {
+      "type": "object",
+      "properties": {
+        "typeUrl": {
+          "type": "string",
+          "description": "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+        },
+        "value": {
+          "type": "string",
+          "format": "byte",
+          "description": "Must be a valid serialized protocol buffer of the above specified type."
+        }
+      },
+      "description": "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(\u0026foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := \u0026pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := \u0026pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": \u003cstring\u003e,\n      \"lastName\": \u003cstring\u003e\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+    },
+    "google.rpc.Status": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/google.protobuf.Any"
+          }
+        }
+      }
+    },
+    "patchbay.accounts.Account": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "string"
+        },
+        "awsCredentials": {
+          "$ref": "#/definitions/patchbay.accounts.AwsCredentials"
+        },
+        "awsMediaLiveRole": {
+          "type": "string"
+        },
+        "awsMediaLiveAlertsQueueName": {
+          "type": "string"
+        },
+        "awsRtmpPushInputSecurityGroup": {
+          "type": "string"
+        },
+        "settings": {
+          "$ref": "#/definitions/patchbay.accounts.Settings"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "kalturaCredentials": {
+          "$ref": "#/definitions/patchbay.accounts.KalturaCredentials"
+        }
+      }
+    },
+    "patchbay.accounts.AwsCredentials": {
+      "type": "object",
+      "properties": {
+        "accessKeyId": {
+          "type": "string"
+        },
+        "secretAccessKey": {
+          "type": "string"
+        }
+      }
+    },
+    "patchbay.accounts.EegSettings": {
+      "type": "object",
+      "properties": {
+        "lexi": {
+          "$ref": "#/definitions/patchbay.accounts.LexiSettings"
+        }
+      }
+    },
+    "patchbay.accounts.KalturaCredentials": {
+      "type": "object",
+      "properties": {
+        "partnerId": {
+          "type": "string"
+        },
+        "adminSecret": {
+          "type": "string"
+        }
+      }
+    },
+    "patchbay.accounts.LexiSettings": {
+      "type": "object",
+      "properties": {
+        "modelId": {
+          "type": "string"
+        }
+      }
+    },
+    "patchbay.accounts.MyAccountResponse": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/patchbay.accounts.Account"
+        }
+      }
+    },
+    "patchbay.accounts.Settings": {
+      "type": "object",
+      "properties": {
+        "accountName": {
+          "type": "string"
+        },
+        "eeg": {
+          "$ref": "#/definitions/patchbay.accounts.EegSettings"
+        },
+        "isStudioEnabled": {
+          "type": "boolean",
+          "title": "Enable Studio Setting"
+        },
+        "isAslEnabled": {
+          "type": "boolean",
+          "title": "Enable ASL Setting"
+        }
+      }
+    },
+    "patchbay.alerts.Alert": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "accountId": {
+          "type": "string"
+        },
+        "alertType": {
+          "$ref": "#/definitions/patchbay.alerts.AlertType"
+        },
+        "dateCreated": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "genericAlertData": {
+          "type": "string"
+        },
+        "medialiveChannelAlertData": {
+          "$ref": "#/definitions/patchbay.alerts.MedialiveChannelAlertData"
+        }
+      }
+    },
+    "patchbay.alerts.AlertType": {
+      "type": "string",
+      "enum": [
+        "ALERT_TYPE_GENERIC",
+        "ALERT_TYPE_MEDIALIVE_CHANNEL"
+      ],
+      "default": "ALERT_TYPE_GENERIC"
+    },
+    "patchbay.alerts.ListAlertsRequest.Filters": {
+      "type": "object",
+      "properties": {
+        "mediaLiveChannelId": {
+          "type": "string"
+        }
+      }
+    },
+    "patchbay.alerts.ListAlertsResponse": {
+      "type": "object",
+      "properties": {
+        "alerts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/patchbay.alerts.Alert"
+          }
+        }
+      }
+    },
+    "patchbay.alerts.MedialiveChannelAlertData": {
+      "type": "object",
+      "properties": {
+        "channelArn": {
+          "type": "string"
+        },
+        "time": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pipelineId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "alertType": {
+          "type": "string"
+        },
+        "alarmState": {
+          "type": "string"
+        },
+        "alertMessage": {
+          "type": "string"
+        }
+      }
+    },
+    "patchbay.applications.Application": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "title": "account id"
+        },
+        "appId": {
+          "type": "string",
+          "title": "application id"
+        },
+        "secret": {
+          "type": "string",
+          "title": "application secret"
+        },
+        "status": {
+          "$ref": "#/definitions/patchbay.applications.ApplicationCredentialsStatus",
+          "title": "application status"
+        },
+        "createdAt": {
+          "type": "integer",
+          "format": "int32",
+          "title": "application created at"
+        },
+        "updatedAt": {
+          "type": "integer",
+          "format": "int32",
+          "title": "application updated at"
+        }
+      }
+    },
+    "patchbay.applications.ApplicationCredentialsStatus": {
+      "type": "string",
+      "enum": [
+        "APPLICATION_CREDENTIALS_ACTIVE",
+        "APPLICATION_CREDENTIALS_DISABLED"
+      ],
+      "default": "APPLICATION_CREDENTIALS_ACTIVE"
+    },
+    "patchbay.applications.CreateApplicationRequest": {
+      "type": "object",
+      "properties": {
+        "application": {
+          "$ref": "#/definitions/patchbay.applications.Application"
+        }
+      }
+    },
+    "patchbay.applications.CreateApplicationResponse": {
+      "type": "object",
+      "properties": {
+        "application": {
+          "$ref": "#/definitions/patchbay.applications.Application"
+        }
+      }
+    },
+    "patchbay.applications.DeleteApplicationResponse": {
+      "type": "object",
+      "properties": {
+        "application": {
+          "$ref": "#/definitions/patchbay.applications.Application"
+        }
+      }
+    },
+    "patchbay.applications.ListApplicationsResponse": {
+      "type": "object",
+      "properties": {
+        "applications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/patchbay.applications.Application"
+          }
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int32",
+          "title": "how many items were be skipped"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32",
+          "title": "the amount of items per response"
+        }
+      }
+    },
+    "patchbay.bievent.CaptionsProductSKU": {
+      "type": "string",
+      "enum": [
+        "HUMAN_TRANSCRIPTION",
+        "HUMAN_TRANSLATION",
+        "AI_TRANSCRIPTION",
+        "AI_TRANSLATION",
+        "ASL_HUMAN_TRANSLATION"
+      ],
+      "default": "HUMAN_TRANSCRIPTION"
+    },
+    "patchbay.common.CaptionType": {
+      "type": "string",
+      "enum": [
+        "CAPTION_TYPE_RTMP",
+        "CAPTION_TYPE_BUILTIN",
+        "CAPTION_TYPE_ARIB",
+        "CAPTION_TYPE_TELETEXT",
+        "CAPTION_TYPE_SCTE27",
+        "CAPTION_TYPE_SCTE20",
+        "CAPTION_TYPE_DVB"
+      ],
+      "default": "CAPTION_TYPE_RTMP"
+    },
+    "patchbay.common.ListFilter": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/patchbay.common.ListFilterItem"
+          }
+        }
+      }
+    },
+    "patchbay.common.ListFilterComparisonOperator": {
+      "type": "string",
+      "enum": [
+        "LIST_FILTER_COMPARISON_STARTS_WITH",
+        "LIST_FILTER_COMPARISON_CONTAINS"
+      ],
+      "default": "LIST_FILTER_COMPARISON_STARTS_WITH"
+    },
+    "patchbay.common.ListFilterItem": {
+      "type": "object",
+      "properties": {
+        "fieldName": {
+          "type": "string"
+        },
+        "fieldValue": {
+          "type": "string"
+        },
+        "comparisonOperator": {
+          "$ref": "#/definitions/patchbay.common.ListFilterComparisonOperator"
+        }
+      }
+    },
+    "patchbay.common.SortDirection": {
+      "type": "string",
+      "enum": [
+        "SORT_DIRECTION_ASC",
+        "SORT_DIRECTION_DESC"
+      ],
+      "default": "SORT_DIRECTION_ASC"
+    },
+    "patchbay.content.AudioOptions": {
+      "type": "object",
+      "properties": {
+        "audioBitrate": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "patchbay.content.AudioSelector": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "name of audio channel (English, French, etc..)"
+        },
+        "audioPid": {
+          "type": "integer",
+          "format": "int64",
+          "title": "pid of audio channel"
+        }
+      },
+      "title": "rtp audio stream selector"
+    },
+    "patchbay.content.AwsMediaConnectOptions": {
+      "type": "object",
+      "properties": {
+        "sourceIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "input sources"
+        },
+        "videoSelector": {
+          "$ref": "#/definitions/patchbay.content.VideoSelector",
+          "title": "video selector"
+        },
+        "audioSelectors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/patchbay.content.AudioSelector"
+          },
+          "title": "audio selectors"
+        },
+        "captionSelectors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/patchbay.content.CaptionSelector"
+          },
+          "title": "captions selectors"
+        },
+        "protocol": {
+          "$ref": "#/definitions/patchbay.sources.MediaConnectFlowSourceProtocol",
+          "title": "Protocol for the source"
+        }
+      }
+    },
+    "patchbay.content.BuiltinCaptionsOptions": {
+      "type": "object",
+      "properties": {
+        "channelId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "patchbay.content.CaptionSelector": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "name of captions channel"
+        },
+        "languageCode": {
+          "type": "string",
+          "title": "language code"
+        },
+        "captionType": {
+          "$ref": "#/definitions/patchbay.common.CaptionType",
+          "title": "type"
+        },
+        "builtinCaptionsOptions": {
+          "$ref": "#/definitions/patchbay.content.BuiltinCaptionsOptions"
+        },
+        "teletextCaptionsOptions": {
+          "$ref": "#/definitions/patchbay.content.TeletextCaptionsOptions"
+        },
+        "scte20CaptionsOptions": {
+          "$ref": "#/definitions/patchbay.content.SCTE20CaptionsOptions"
+        },
+        "scte27CaptionsOptions": {
+          "$ref": "#/definitions/patchbay.content.SCTE27CaptionsOptions"
+        },
+        "dvbCaptionsOptions": {
+          "$ref": "#/definitions/patchbay.content.DVBCaptionsOptions"
+        }
+      }
+    },
+    "patchbay.content.ContentItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "content item uuid"
+        },
+        "accountId": {
+          "type": "string",
+          "title": "account id"
+        },
+        "bucketName": {
+          "type": "string",
+          "title": "storage bucket name"
+        },
+        "path": {
+          "type": "string",
+          "title": "storage bucket name"
+        },
+        "title": {
+          "type": "string",
+          "title": "title"
+        },
+        "thumbnailUrl": {
+          "type": "string",
+          "title": "thumbnail url"
+        },
+        "contentType": {
+          "$ref": "#/definitions/patchbay.content.ContentType",
+          "title": "content type"
+        },
+        "mimeType": {
+          "type": "string",
+          "title": "mime type"
+        },
+        "imageOptions": {
+          "$ref": "#/definitions/patchbay.content.ImageOptions",
+          "title": "image options"
+        },
+        "videoOptions": {
+          "$ref": "#/definitions/patchbay.content.VideoOptions",
+          "title": "video options"
+        },
+        "audioOptions": {
+          "$ref": "#/definitions/patchbay.content.AudioOptions",
+          "title": "audio options"
+        },
+        "liveOptions": {
+          "$ref": "#/definitions/patchbay.content.LiveOptions",
+          "title": "live options"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "tags"
+        },
+        "status": {
+          "$ref": "#/definitions/patchbay.content.ContentStatus",
+          "title": "content status"
+        },
+        "statusMessage": {
+          "type": "string",
+          "title": "content status message"
+        },
+        "fileSize": {
+          "type": "string",
+          "format": "uint64",
+          "title": "file size in bytes"
+        },
+        "contentSignedUrls": {
+          "$ref": "#/definitions/patchbay.content.ContentSignedUrls",
+          "title": "content signed urls"
+        },
+        "createdAt": {
+          "type": "integer",
+          "format": "int32",
+          "title": "created at"
+        },
+        "updatedAt": {
+          "type": "integer",
+          "format": "int32",
+          "title": "updated at"
+        }
+      }
+    },
+    "patchbay.content.ContentPlatform": {
+      "type": "string",
+      "enum": [
+        "CONTENT_PLATFORM_PATCHBAY",
+        "CONTENT_PLATFORM_KALTURA"
+      ],
+      "default": "CONTENT_PLATFORM_PATCHBAY"
+    },
+    "patchbay.content.ContentSignedUrls": {
+      "type": "object",
+      "properties": {
+        "downloadUrl": {
+          "type": "string",
+          "title": "signed download url"
+        },
+        "thumbnailUrl": {
+          "type": "string",
+          "title": "signed download url"
+        },
+        "videoUrl": {
+          "type": "string",
+          "title": "signed download url"
+        }
+      }
+    },
+    "patchbay.content.ContentSortBy": {
+      "type": "string",
+      "enum": [
+        "CONTENT_SORT_BY_TYPE",
+        "CONTENT_SORT_BY_NAME",
+        "CONTENT_SORT_BY_DATE",
+        "CONTENT_SORT_BY_STATUS"
+      ],
+      "default": "CONTENT_SORT_BY_TYPE"
+    },
+    "patchbay.content.ContentStatus": {
+      "type": "string",
+      "enum": [
+        "CONTENT_STATUS_IMPORTING",
+        "CONTENT_STATUS_PROCESSING",
+        "CONTENT_STATUS_READY",
+        "CONTENT_STATUS_ERROR"
+      ],
+      "default": "CONTENT_STATUS_IMPORTING"
+    },
+    "patchbay.content.ContentType": {
+      "type": "string",
+      "enum": [
+        "CONTENT_TYPE_IMAGE",
+        "CONTENT_TYPE_VIDEO",
+        "CONTENT_TYPE_AUDIO",
+        "CONTENT_TYPE_LIVE",
+        "CONTENT_TYPE_UNKNOWN"
+      ],
+      "default": "CONTENT_TYPE_IMAGE"
+    },
+    "patchbay.content.CreateContentRequest": {
+      "type": "object",
+      "properties": {
+        "contentItem": {
+          "$ref": "#/definitions/patchbay.content.ContentItem"
+        }
+      }
+    },
+    "patchbay.content.CreateContentResponse": {
+      "type": "object",
+      "properties": {
+        "contentItem": {
+          "$ref": "#/definitions/patchbay.content.ContentItem"
+        }
+      }
+    },
+    "patchbay.content.DVBCaptionsOptions": {
+      "type": "object",
+      "properties": {
+        "captionPid": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "patchbay.content.DeleteContentResponse": {
+      "type": "object"
+    },
+    "patchbay.content.ExternalContentItem": {
+      "type": "object",
+      "properties": {
+        "externalId": {
+          "type": "string",
+          "title": "id of external content in the external platform"
+        },
+        "contentType": {
+          "$ref": "#/definitions/patchbay.content.ContentType",
+          "title": "content type"
+        },
+        "title": {
+          "type": "string",
+          "title": "title"
+        },
+        "thumbnailUrl": {
+          "type": "string",
+          "title": "thumbnail url"
+        },
+        "downloadUrl": {
+          "type": "string",
+          "title": "download url"
+        },
+        "rtmpOptions": {
+          "$ref": "#/definitions/patchbay.sources.RtmpOptions",
+          "title": "rtmp options"
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int32",
+          "title": "duration"
+        },
+        "createdAt": {
+          "type": "integer",
+          "format": "int32",
+          "title": "created at"
+        }
+      }
+    },
+    "patchbay.content.GenericRtmpOptions": {
+      "type": "object",
+      "properties": {
+        "rtmpOptions": {
+          "$ref": "#/definitions/patchbay.sources.RtmpOptions",
+          "title": "rtmp options"
+        }
+      }
+    },
+    "patchbay.content.GetContentResponse": {
+      "type": "object",
+      "properties": {
+        "contentItem": {
+          "$ref": "#/definitions/patchbay.content.ContentItem"
+        }
+      }
+    },
+    "patchbay.content.GetMediaConnectFlowDetailsResponse": {
+      "type": "object",
+      "properties": {
+        "mediaConnectFlowDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/patchbay.content.MediaConnectFlowDetails"
+          }
+        }
+      }
+    },
+    "patchbay.content.GetSessionsForContentResponse": {
+      "type": "object"
+    },
+    "patchbay.content.ImageOptions": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "height": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "patchbay.content.ImportContentRequest": {
+      "type": "object",
+      "properties": {
+        "importParameters": {
+          "$ref": "#/definitions/patchbay.content.ImportParameters"
+        }
+      }
+    },
+    "patchbay.content.ImportContentResponse": {
+      "type": "object",
+      "properties": {
+        "contentItem": {
+          "$ref": "#/definitions/patchbay.content.ContentItem"
+        }
+      }
+    },
+    "patchbay.content.ImportExternalContentRequest": {
+      "type": "object",
+      "properties": {
+        "platform": {
+          "$ref": "#/definitions/patchbay.content.ContentPlatform",
+          "title": "platform to list content from"
+        },
+        "externalIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "external content ids"
+        }
+      }
+    },
+    "patchbay.content.ImportExternalContentResponse": {
+      "type": "object",
+      "properties": {
+        "contentItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/patchbay.content.ContentItem"
+          }
+        }
+      }
+    },
+    "patchbay.content.ImportParameters": {
+      "type": "object",
+      "properties": {
+        "importUrl": {
+          "type": "string",
+          "title": "url to import from"
+        },
+        "importFilename": {
+          "type": "string",
+          "title": "file name"
+        },
+        "mimeType": {
+          "type": "string",
+          "title": "mime type"
+        },
+        "contentType": {
+          "$ref": "#/definitions/patchbay.content.ContentType",
+          "title": "content type"
+        },
+        "requestHeaders": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "additional headers"
+        }
+      }
+    },
+    "patchbay.content.ListContentResponse": {
+      "type": "object",
+      "properties": {
+        "contentItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/patchbay.content.ContentItem"
+          }
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int32",
+          "title": "how many items were be skipped"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32",
+          "title": "the amount of items per response"
+        }
+      }
+    },
+    "patchbay.content.ListExternalContentResponse": {
+      "type": "object",
+      "properties": {
+        "externalContentItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/patchbay.content.ExternalContentItem"
+          },
+          "title": "external content Item"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int32",
+          "title": "how many items were skipped"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32",
+          "title": "the amount of items per response"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "title": "total items for this query"
+        }
+      }
+    },
+    "patchbay.content.LiveOptions": {
+      "type": "object",
+      "properties": {
+        "sourceType": {
+          "$ref": "#/definitions/patchbay.sources.SourceType",
+          "title": "source type"
+        },
+        "awsMediaConnectOptions": {
+          "$ref": "#/definitions/patchbay.content.AwsMediaConnectOptions"
+        },
+        "genericRtmpOptions": {
+          "$ref": "#/definitions/patchbay.content.GenericRtmpOptions"
+        }
+      }
+    },
+    "patchbay.content.MediaConnectFlowDetails": {
+      "type": "object",
+      "properties": {
+        "ip": {
+          "type": "string"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "protocol": {
+          "$ref": "#/definitions/patchbay.sources.MediaConnectFlowSourceProtocol"
+        }
+      }
+    },
+    "patchbay.content.SCTE20CaptionsOptions": {
+      "type": "object",
+      "properties": {
+        "channelNumber": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "convert608To708": {
+          "type": "boolean"
+        }
+      }
+    },
+    "patchbay.content.SCTE27CaptionsOptions": {
+      "type": "object",
+      "properties": {
+        "captionPid": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "patchbay.content.TeletextCaptionsOptions": {
+      "type": "object",
+      "properties": {
+        "pageNumber": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "patchbay.content.UpdateContentResponse": {
+      "type": "object",
+      "properties": {
+        "contentItem": {
+          "$ref": "#/definitions/patchbay.content.ContentItem"
+        }
+      }
+    },
+    "patchbay.content.VideoOptions": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "height": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "videoBitrate": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "audioBitrate": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "patchbay.content.VideoSelector": {
+      "type": "object",
+      "properties": {
+        "videoPid": {
+          "type": "integer",
+          "format": "int64",
+          "title": "video pid"
+        }
+      },
+      "title": "rtp video stream selector"
+    },
+    "patchbay.outputtemplates.AudioCodec": {
+      "type": "string",
+      "enum": [
+        "AUDIO_CODEC_AAC",
+        "AUDIO_CODEC_AC3"
+      ],
+      "default": "AUDIO_CODEC_AAC"
+    },
+    "patchbay.outputtemplates.AudioStreamSettings": {
+      "type": "object",
+      "properties": {
+        "audioCodec": {
+          "$ref": "#/definitions/patchbay.outputtemplates.AudioCodec"
+        },
+        "audioBitrate": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "patchbay.outputtemplates.CaptionStreamSettings": {
+      "type": "object",
+      "properties": {
+        "captionType": {
+          "$ref": "#/definitions/patchbay.common.CaptionType"
+        }
+      }
+    },
+    "patchbay.outputtemplates.CreateOutputTemplateRequest": {
+      "type": "object",
+      "properties": {
+        "outputTemplate": {
+          "$ref": "#/definitions/patchbay.outputtemplates.OutputTemplate"
+        }
+      }
+    },
+    "patchbay.outputtemplates.CreateOutputTemplateResponse": {
+      "type": "object",
+      "properties": {
+        "outputTemplate": {
+          "$ref": "#/definitions/patchbay.outputtemplates.OutputTemplate"
+        }
+      }
+    },
+    "patchbay.outputtemplates.DeleteOutputTemplateResponse": {
+      "type": "object"
+    },
+    "patchbay.outputtemplates.GetOutputTemplateResponse": {
+      "type": "object",
+      "properties": {
+        "outputTemplate": {
+          "$ref": "#/definitions/patchbay.outputtemplates.OutputTemplate"
+        }
+      }
+    },
+    "patchbay.outputtemplates.ListOutputTemplatesResponse": {
+      "type": "object",
+      "properties": {
+        "outputTemplates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/patchbay.outputtemplates.OutputTemplate"
+          }
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int32",
+          "title": "how many items where skipped"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32",
+          "title": "the amount of items per response"
+        }
+      }
+    },
+    "patchbay.outputtemplates.Output": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/patchbay.outputtemplates.OutputType",
+          "title": "output type"
+        },
+        "name": {
+          "type": "string",
+          "title": "output name"
+        },
+        "streamSettings": {
+          "$ref": "#/definitions/patchbay.outputtemplates.StreamSettings",
+          "title": "stream settings"
+        }
+      }
+    },
+    "patchbay.outputtemplates.OutputTemplate": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "unique output template id"
+        },
+        "name": {
+          "type": "string",
+          "title": "output template name"
+        },
+        "accountId": {
+          "type": "string",
+          "title": "account id"
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/patchbay.outputtemplates.Output"
+          }
+        }
+      }
+    },
+    "patchbay.outputtemplates.OutputType": {
+      "type": "string",
+      "enum": [
+        "OUTPUT_TYPE_RTMP"
+      ],
+      "default": "OUTPUT_TYPE_RTMP"
+    },
+    "patchbay.outputtemplates.StreamSettings": {
+      "type": "object",
+      "properties": {
+        "videoStreamSettings": {
+          "$ref": "#/definitions/patchbay.outputtemplates.VideoStreamSettings"
+        },
+        "audioStreamSettings": {
+          "$ref": "#/definitions/patchbay.outputtemplates.AudioStreamSettings"
+        },
+        "captionStreamSettings": {
+          "$ref": "#/definitions/patchbay.outputtemplates.CaptionStreamSettings"
+        }
+      }
+    },
+    "patchbay.outputtemplates.UpdateOutputTemplateResponse": {
+      "type": "object",
+      "properties": {
+        "outputTemplate": {
+          "$ref": "#/definitions/patchbay.outputtemplates.OutputTemplate"
+        }
+      }
+    },
+    "patchbay.outputtemplates.VideoCodecProfile": {
+      "type": "string",
+      "enum": [
+        "VIDEO_CODEC_PROFILE_MAIN",
+        "VIDEO_CODEC_PROFILE_BASELINE",
+        "VIDEO_CODEC_PROFILE_HIGH"
+      ],
+      "default": "VIDEO_CODEC_PROFILE_MAIN"
+    },
+    "patchbay.outputtemplates.VideoGopSizeUnits": {
+      "type": "string",
+      "enum": [
+        "VIDEO_GOP_SIZE_UNITS_FRAMES",
+        "VIDEO_GOP_SIZE_UNITS_SECONDS"
+      ],
+      "default": "VIDEO_GOP_SIZE_UNITS_FRAMES"
+    },
+    "patchbay.outputtemplates.VideoRateControlMode": {
+      "type": "string",
+      "enum": [
+        "VIDEO_RATE_CONTROL_MODE_CBR",
+        "VIDEO_RATE_CONTROL_MODE_VBR",
+        "VIDEO_RATE_CONTROL_MODE_QVBR"
+      ],
+      "default": "VIDEO_RATE_CONTROL_MODE_CBR"
+    },
+    "patchbay.outputtemplates.VideoScanType": {
+      "type": "string",
+      "enum": [
+        "VIDEO_SCAN_TYPE_PROGRESSIVE",
+        "VIDEO_SCAN_TYPE_INTERLACED"
+      ],
+      "default": "VIDEO_SCAN_TYPE_PROGRESSIVE"
+    },
+    "patchbay.outputtemplates.VideoStreamSettings": {
+      "type": "object",
+      "properties": {
+        "videoWidth": {
+          "type": "integer",
+          "format": "int32",
+          "title": "video width"
+        },
+        "videoHeight": {
+          "type": "integer",
+          "format": "int32",
+          "title": "video height"
+        },
+        "videoRateControlMode": {
+          "$ref": "#/definitions/patchbay.outputtemplates.VideoRateControlMode",
+          "title": "rate control mode"
+        },
+        "videoBitrate": {
+          "type": "integer",
+          "format": "int32",
+          "title": "video bitrate"
+        },
+        "initializeFramerateFromSource": {
+          "type": "boolean",
+          "title": "initialize framerate from source"
+        },
+        "videoFramerate": {
+          "type": "integer",
+          "format": "int32",
+          "title": "specified framerate"
+        },
+        "videoScanType": {
+          "$ref": "#/definitions/patchbay.outputtemplates.VideoScanType",
+          "title": "video scan type"
+        },
+        "videoGopSize": {
+          "type": "integer",
+          "format": "int32",
+          "title": "video gop size"
+        },
+        "videoGopSizeUnits": {
+          "$ref": "#/definitions/patchbay.outputtemplates.VideoGopSizeUnits",
+          "title": "video gop size units"
+        },
+        "videoCodecProfile": {
+          "$ref": "#/definitions/patchbay.outputtemplates.VideoCodecProfile",
+          "title": "video codec profile"
+        }
+      }
+    },
+    "patchbay.settings.GetSettingsResponse": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "title": "account id"
+        },
+        "settings": {
+          "$ref": "#/definitions/patchbay.settings.Settings",
+          "title": "account settings"
+        }
+      }
+    },
+    "patchbay.settings.Settings": {
+      "type": "object",
+      "properties": {
+        "accountName": {
+          "type": "string",
+          "title": "account name"
+        }
+      }
+    },
+    "patchbay.sources.CreateSourceRequest": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "$ref": "#/definitions/patchbay.sources.Source",
+          "title": "source"
+        }
+      }
+    },
+    "patchbay.sources.CreateSourceResponse": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "$ref": "#/definitions/patchbay.sources.Source"
+        }
+      }
+    },
+    "patchbay.sources.ListSourcesResponse": {
+      "type": "object",
+      "properties": {
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/patchbay.sources.Source"
+          }
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int32",
+          "title": "how many items where skipped"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32",
+          "title": "the amount of items per response"
+        }
+      }
+    },
+    "patchbay.sources.MediaConnectFlowSource": {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "$ref": "#/definitions/patchbay.sources.MediaConnectFlowSourceProtocol",
+          "title": "Protocol for the source"
+        },
+        "whitelistCidr": {
+          "type": "string",
+          "title": "Maps to WhitelistCIDR on AWS CLI"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32",
+          "title": "Maps to IngestPort on AWS CLI"
+        }
+      }
+    },
+    "patchbay.sources.MediaConnectFlowSourceProtocol": {
+      "type": "string",
+      "enum": [
+        "ZIXI_PUSH",
+        "RTP",
+        "RTP_FEC",
+        "RIST",
+        "SRT"
+      ],
+      "default": "ZIXI_PUSH"
+    },
+    "patchbay.sources.RtmpOptions": {
+      "type": "object",
+      "properties": {
+        "primaryUrl": {
+          "type": "string"
+        },
+        "primaryStreamName": {
+          "type": "string"
+        },
+        "secondaryUrl": {
+          "type": "string"
+        },
+        "secondaryStreamName": {
+          "type": "string"
+        }
+      }
+    },
+    "patchbay.sources.Source": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "source unique id"
+        },
+        "type": {
+          "$ref": "#/definitions/patchbay.sources.SourceType",
+          "title": "source type"
+        },
+        "name": {
+          "type": "string",
+          "title": "source name"
+        },
+        "rtmpOptions": {
+          "$ref": "#/definitions/patchbay.sources.RtmpOptions",
+          "title": "source rtmp options"
+        },
+        "flowSourceOptions": {
+          "$ref": "#/definitions/patchbay.sources.MediaConnectFlowSource",
+          "title": "Options for MediaConnect Flow Source"
+        }
+      }
+    },
+    "patchbay.sources.SourceType": {
+      "type": "string",
+      "enum": [
+        "AWS_MEDIACONNECT_FLOW",
+        "GENERIC_RTMP_INPUT",
+        "GENERIC_RTMPS_INPUT"
+      ],
+      "default": "AWS_MEDIACONNECT_FLOW"
+    },
+    "patchbay.transactions.ListTransactionsResponse": {
+      "type": "object",
+      "properties": {
+        "transactions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/patchbay.transactions.Transaction"
+          }
+        }
+      }
+    },
+    "patchbay.transactions.LiveCaptionsTransactionDetails": {
+      "type": "object",
+      "properties": {
+        "streamId": {
+          "type": "string",
+          "title": "account id"
+        },
+        "productSku": {
+          "$ref": "#/definitions/patchbay.bievent.CaptionsProductSKU",
+          "title": "Caption Product SKU"
+        },
+        "language": {
+          "type": "string",
+          "title": "Language for caption"
+        },
+        "usedMinutes": {
+          "type": "number",
+          "format": "float",
+          "title": "used minutes"
+        },
+        "name": {
+          "type": "string",
+          "title": "name"
+        }
+      }
+    },
+    "patchbay.transactions.Transaction": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "transaction id"
+        },
+        "accountId": {
+          "type": "string",
+          "title": "account id"
+        },
+        "transactionType": {
+          "$ref": "#/definitions/patchbay.transactions.TransactionType",
+          "title": "Transaction type"
+        },
+        "amount": {
+          "type": "number",
+          "format": "float",
+          "title": "Transaction amount"
+        },
+        "liveCaptionsTransactionDetails": {
+          "$ref": "#/definitions/patchbay.transactions.LiveCaptionsTransactionDetails"
+        },
+        "createdAt": {
+          "type": "integer",
+          "format": "int32",
+          "title": "purchase created at"
+        },
+        "updatedAt": {
+          "type": "integer",
+          "format": "int32",
+          "title": "purchase updated at"
+        },
+        "startedAt": {
+          "type": "integer",
+          "format": "int32",
+          "title": "started at"
+        },
+        "stoppedAt": {
+          "type": "integer",
+          "format": "int32",
+          "title": "stopped at"
+        }
+      }
+    },
+    "patchbay.transactions.TransactionType": {
+      "type": "string",
+      "enum": [
+        "LIVE_CAPTIONS",
+        "LIVE_ASL"
+      ],
+      "default": "LIVE_CAPTIONS"
+    }
+  }
+}
